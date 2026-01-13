@@ -4,6 +4,7 @@ import Home from '../pages/Home';
 import About from '../pages/About';
 import Services from '../pages/Services';
 import Contact from '../pages/Contact';
+import Work from '../pages/Work';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 const AppRouter: React.FC = () => {
@@ -40,6 +41,7 @@ const AppRouter: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/work" element={<Work />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>

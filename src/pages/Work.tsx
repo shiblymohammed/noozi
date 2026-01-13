@@ -1,173 +1,293 @@
 import React from 'react';
 
 const Work: React.FC = () => {
-  const projects = [
+  // Video data with varying heights for masonry effect
+  const videos = [
+    // ORIGINAL VIDEOS from IntroSection3
     {
       id: 1,
-      title: "E-Commerce Platform",
-      description: "A modern e-commerce solution with React and Node.js",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      link: "#"
+      url: "https://player.vimeo.com/video/1153483177?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[400px]', // Medium
+      isOriginal: true,
     },
     {
       id: 2,
-      title: "Task Management App",
-      description: "Collaborative project management tool with real-time updates",
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      technologies: ["React", "TypeScript", "Firebase", "Material-UI"],
-      link: "#"
+      url: "https://player.vimeo.com/video/1153483144?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[500px]', // Tall
+      isOriginal: true,
     },
     {
       id: 3,
-      title: "Weather Dashboard",
-      description: "Real-time weather tracking with interactive maps",
-      image: "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Vue.js", "API Integration", "Chart.js", "CSS3"],
-      link: "#"
+      url: "https://player.vimeo.com/video/1153483218?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[350px]', // Short
+      isOriginal: true,
     },
     {
       id: 4,
-      title: "Social Media Analytics",
-      description: "Comprehensive analytics dashboard for social media metrics",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Angular", "D3.js", "Python", "PostgreSQL"],
-      link: "#"
+      url: "https://player.vimeo.com/video/1153483192?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[450px]', // Medium-tall
+      isOriginal: true,
     },
     {
       id: 5,
-      title: "Learning Management System",
-      description: "Online education platform with video streaming and assessments",
-      image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      technologies: ["React", "Express.js", "AWS", "WebRTC"],
-      link: "#"
+      url: "https://player.vimeo.com/video/1153483221?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[380px]', // Medium-short
+      isOriginal: true,
     },
     {
       id: 6,
-      title: "Fitness Tracking App",
-      description: "Mobile-first fitness application with workout plans and progress tracking",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      technologies: ["React Native", "Redux", "SQLite", "Health APIs"],
-      link: "#"
-    }
+      url: "https://player.vimeo.com/video/1153483174?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[420px]', // Medium
+      isOriginal: true,
+    },
+    
+    // ADDITIONAL RANDOM VIDEOS
+    {
+      id: 7,
+      url: "https://player.vimeo.com/video/76979871?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[480px]',
+      isOriginal: false,
+    },
+    {
+      id: 8,
+      url: "https://player.vimeo.com/video/148751763?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[360px]',
+      isOriginal: false,
+    },
+    {
+      id: 9,
+      url: "https://player.vimeo.com/video/115783408?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[440px]',
+      isOriginal: false,
+    },
+    {
+      id: 10,
+      url: "https://player.vimeo.com/video/125095515?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[390px]',
+      isOriginal: false,
+    },
+    {
+      id: 11,
+      url: "https://player.vimeo.com/video/169599296?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[520px]',
+      isOriginal: false,
+    },
+    {
+      id: 12,
+      url: "https://player.vimeo.com/video/179859217?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[370px]',
+      isOriginal: false,
+    },
+    {
+      id: 13,
+      url: "https://player.vimeo.com/video/94338566?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[410px]',
+      isOriginal: false,
+    },
+    {
+      id: 14,
+      url: "https://player.vimeo.com/video/108018156?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[460px]',
+      isOriginal: false,
+    },
+    {
+      id: 15,
+      url: "https://player.vimeo.com/video/135567990?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[340px]',
+      isOriginal: false,
+    },
+    {
+      id: 16,
+      url: "https://player.vimeo.com/video/158144173?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[490px]',
+      isOriginal: false,
+    },
+    {
+      id: 17,
+      url: "https://player.vimeo.com/video/190062231?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[430px]',
+      isOriginal: false,
+    },
+    {
+      id: 18,
+      url: "https://player.vimeo.com/video/214729640?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[380px]',
+      isOriginal: false,
+    },
+    {
+      id: 19,
+      url: "https://player.vimeo.com/video/240924178?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[470px]',
+      isOriginal: false,
+    },
+    {
+      id: 20,
+      url: "https://player.vimeo.com/video/268896653?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[400px]',
+      isOriginal: false,
+    },
+    {
+      id: 21,
+      url: "https://player.vimeo.com/video/290408178?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[350px]',
+      isOriginal: false,
+    },
+    {
+      id: 22,
+      url: "https://player.vimeo.com/video/312629558?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[510px]',
+      isOriginal: false,
+    },
+    {
+      id: 23,
+      url: "https://player.vimeo.com/video/336812660?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[420px]',
+      isOriginal: false,
+    },
+    {
+      id: 24,
+      url: "https://player.vimeo.com/video/354517485?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[450px]',
+      isOriginal: false,
+    },
+    {
+      id: 25,
+      url: "https://player.vimeo.com/video/370467553?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[395px]',
+      isOriginal: false,
+    },
+    {
+      id: 26,
+      url: "https://player.vimeo.com/video/396371417?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[475px]',
+      isOriginal: false,
+    },
+    {
+      id: 27,
+      url: "https://player.vimeo.com/video/418976961?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[365px]',
+      isOriginal: false,
+    },
+    {
+      id: 28,
+      url: "https://player.vimeo.com/video/445442861?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[435px]',
+      isOriginal: false,
+    },
+    {
+      id: 29,
+      url: "https://player.vimeo.com/video/462633135?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[505px]',
+      isOriginal: false,
+    },
+    {
+      id: 30,
+      url: "https://player.vimeo.com/video/485149595?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[385px]',
+      isOriginal: false,
+    },
+    {
+      id: 31,
+      url: "https://player.vimeo.com/video/507237812?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[445px]',
+      isOriginal: false,
+    },
+    {
+      id: 32,
+      url: "https://player.vimeo.com/video/531945572?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[415px]',
+      isOriginal: false,
+    },
+    {
+      id: 33,
+      url: "https://player.vimeo.com/video/558609190?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[465px]',
+      isOriginal: false,
+    },
+    {
+      id: 34,
+      url: "https://player.vimeo.com/video/582945284?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[375px]',
+      isOriginal: false,
+    },
+    {
+      id: 35,
+      url: "https://player.vimeo.com/video/607682715?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[495px]',
+      isOriginal: false,
+    },
+    {
+      id: 36,
+      url: "https://player.vimeo.com/video/631773947?background=1&autoplay=1&loop=1&muted=1&controls=0",
+      height: 'h-[425px]',
+      isOriginal: false,
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Our Portfolio
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            Discover our latest projects and creative solutions that drive business success
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <span className="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm font-medium">
-              Web Development
-            </span>
-            <span className="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm font-medium">
-              Mobile Apps
-            </span>
-            <span className="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm font-medium">
-              UI/UX Design
-            </span>
-          </div>
-        </div>
-      </section>
+    <div className="min-h-screen bg-alpha pt-32 pb-20">
+      {/* Header */}
+      <div className="px-4 md:px-8 lg:px-16 mb-12">
+        <h1 className="text-6xl md:text-8xl font-extrabold italic text-beta uppercase font-barlow mb-4">
+          Our Work
+        </h1>
+        <p className="text-lg text-beta/70 max-w-2xl">
+          A collection of our creative visual storytelling projects
+        </p>
+      </div>
 
-      {/* Projects Grid */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Featured Projects
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Each project represents our commitment to excellence and innovation in digital solutions
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
-              <div
-                key={project.id}
-                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group"
+      {/* Pinterest Masonry Grid - Full Width */}
+      <div className="px-4 md:px-6 lg:px-8">
+        <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6">
+          {videos.map((video) => (
+            <div
+              key={video.id}
+              className="break-inside-avoid mb-4 md:mb-6 group relative"
+            >
+              <div 
+                className={`${video.height} bg-black rounded-lg overflow-hidden relative shadow-lg hover:shadow-2xl transition-all duration-300`}
+                style={{
+                  filter: 'drop-shadow(10px 15px 10px rgba(0, 0, 0, 0.25))',
+                }}
               >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
+                <iframe 
+                  src={video.url}
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  style={{ pointerEvents: 'none' }}
+                  title={`Video ${video.id}`}
+                />
                 
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    {project.description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.map((tech, index) => (
-                      <span
-                        key={index}
-                        className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                {/* Overlay on hover */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 pointer-events-none" />
+                
+                {/* Original badge */}
+                {video.isOriginal && (
+                  <div className="absolute top-4 right-4 bg-zigma text-white text-xs font-bold px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Original
                   </div>
-                  
-                  <a
-                    href={project.link}
-                    className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300"
-                  >
-                    View Project
-                    <svg
-                      className="w-4 h-4 ml-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                  </a>
-                </div>
+                )}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </section>
+      </div>
 
       {/* CTA Section */}
-      <section className="bg-gray-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Start Your Project?
-          </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Let's collaborate to bring your vision to life with cutting-edge technology and creative design
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300">
-              Start a Project
-            </button>
-            <button className="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors duration-300">
-              View All Work
-            </button>
-          </div>
-        </div>
-      </section>
+      <div className="max-w-4xl mx-auto text-center mt-20">
+        <h2 className="text-4xl md:text-5xl font-bold italic text-beta uppercase font-barlow mb-6">
+          Like what you see?
+        </h2>
+        <p className="text-lg text-beta/70 mb-8">
+          Let's create something amazing together
+        </p>
+        <button className="px-10 py-4 bg-beta text-white rounded-full text-lg font-semibold hover:scale-105 hover:shadow-xl transition-all duration-300">
+          Start a Project
+        </button>
+      </div>
     </div>
   );
 };
