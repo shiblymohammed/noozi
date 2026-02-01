@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppRouter from '../router/AppRouter';
 import { LoadingProvider } from '../contexts/LoadingContext';
 import SmoothScroll from '../components/SmoothScroll';
+import LoadingScreen from '../components/LoadingScreen';
+import { AnimatePresence } from 'framer-motion';
 
 const MainLayout: React.FC = () => {
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <LoadingProvider>
+      <AnimatePresence mode="wait">
+        {showSplash && <LoadingScreen />}
+      </AnimatePresence>
+      
       <Router>
         <SmoothScroll />
         <div className="min-h-screen flex flex-col relative overflow-x-hidden">

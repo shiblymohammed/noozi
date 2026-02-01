@@ -237,12 +237,12 @@ const Work: React.FC = () => {
       </div>
 
       {/* Pinterest Masonry Grid - Full Width */}
-      <div className="px-4 md:px-6 lg:px-8">
-        <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6">
+      <div className="px-2 md:px-4 lg:px-6">
+        <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 2xl:columns-5 gap-2 md:gap-3 space-y-2 md:space-y-3">
           {videos.map((video) => (
             <div
               key={video.id}
-              className="break-inside-avoid mb-4 md:mb-6 group relative"
+              className="break-inside-avoid mb-2 md:mb-3 group relative"
             >
               <div 
                 className={`${video.height} bg-black rounded-lg overflow-hidden relative shadow-lg hover:shadow-2xl transition-all duration-300`}
