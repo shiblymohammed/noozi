@@ -124,14 +124,14 @@ const IntroSection2: React.FC = () => {
 
             {/* Email Button */}
             <a 
-              href="mailto:hi@basecamp.agency" 
+              href="mailto:nooziproductions@gmail.com" 
               className="flex items-center gap-3 px-8 py-4 bg-tango/80 hover:bg-tango rounded-full transition-colors duration-300 text-alpha font-medium"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
               </svg>
-              hi@basecamp.agency
+              nooziproductions@gmail.com
             </a>
           </div>
         </div>
