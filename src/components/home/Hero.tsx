@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback } from "react";
-import { motion, useScroll, useTransform, useMotionTemplate } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionTemplate, useAnimation } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 
 /* ─── Floating Orb Component ─── */
@@ -91,6 +91,68 @@ const AnimatedLine: React.FC<{
   />
 );
 
+/* ─── Wiggle Letter Component ─── */
+const WiggleLetter: React.FC<{ char: string; index: number }> = ({ char, index }) => {
+  const controls = useAnimation();
+
+  useEffect(() => {
+    let intervalId: ReturnType<typeof setInterval>;
+    let cancelled = false;
+
+    const run = async () => {
+      // Initial entrance animation
+      await controls.start({
+        opacity: 1,
+        y: 0,
+        rotateX: 0,
+        transition: {
+          delay: 0.6 + index * 0.06,
+          duration: 0.8,
+          ease: [0.16, 1, 0.3, 1] as const,
+        },
+      });
+
+      if (cancelled) return;
+
+      // Repeating wiggle every 3.5s with per-letter stagger
+      const staggerDelay = index * 80;
+      intervalId = setInterval(async () => {
+        if (cancelled) return;
+        await new Promise((r) => setTimeout(r, staggerDelay));
+        if (cancelled) return;
+        await controls.start({
+          rotateZ: [0, -8, 8, -5, 4, 0],
+          y: [0, -5, 3, -2, 0],
+          scale: [1, 1.08, 0.96, 1.03, 1],
+          transition: { duration: 0.6, ease: "easeInOut" },
+        });
+      }, 3500);
+    };
+
+    run();
+
+    return () => {
+      cancelled = true;
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [controls, index]);
+
+  return (
+    <motion.span
+      className="inline-block"
+      initial={{ opacity: 0, y: 80, rotateX: -90 }}
+      animate={controls}
+      style={{
+        display: "inline-block",
+        textShadow:
+          "0 0 80px rgba(36, 138, 97, 0.15), 0 0 160px rgba(36, 138, 97, 0.05)",
+      }}
+    >
+      {char}
+    </motion.span>
+  );
+};
+
 /* ─── Hero Component ─── */
 const Hero: React.FC = () => {
   const [transformStyle, setTransformStyle] = React.useState({});
@@ -150,20 +212,7 @@ const Hero: React.FC = () => {
     ctx.putImageData(imageData, 0, 0);
   }, []);
 
-  // Letter animation variants
-  const letterVariants = {
-    hidden: { opacity: 0, y: 80, rotateX: -90 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      rotateX: 0,
-      transition: {
-        delay: 0.6 + i * 0.06,
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    }),
-  };
+
 
   const wordVariants = {
     hidden: { opacity: 0, y: 40 },
@@ -173,7 +222,7 @@ const Hero: React.FC = () => {
       transition: {
         delay: 1.6 + i * 0.15,
         duration: 0.7,
-        ease: [0.16, 1, 0.3, 1],
+        ease: [0.16, 1, 0.3, 1] as const,
       },
     }),
   };
@@ -287,20 +336,7 @@ const Hero: React.FC = () => {
         <div className="overflow-hidden mb-2" style={{ perspective: "800px" }}>
           <h1 className="flex items-center justify-center text-[18vw] md:text-[14vw] lg:text-[12vw] leading-[0.85] font-barlow font-black text-tango tracking-[-0.02em]">
             {heroTitle.split("").map((char, i) => (
-              <motion.span
-                key={i}
-                className="inline-block"
-                custom={i}
-                initial="hidden"
-                animate="visible"
-                variants={letterVariants}
-                style={{
-                  display: "inline-block",
-                  textShadow: "0 0 80px rgba(36, 138, 97, 0.15), 0 0 160px rgba(36, 138, 97, 0.05)",
-                }}
-              >
-                {char}
-              </motion.span>
+              <WiggleLetter key={i} char={char} index={i} />
             ))}
           </h1>
         </div>
