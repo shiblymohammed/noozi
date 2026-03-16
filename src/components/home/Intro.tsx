@@ -1,6 +1,6 @@
 // Intro.tsx
 const Intro = () => (
-  <section className="relative h-[175vh] w-full bg-alpha flex items-center justify-center overflow-hidden">
+  <section className="relative h-[90vh] md:h-[175vh] w-full bg-alpha flex items-center justify-center overflow-hidden">
     {/* Background Pattern */}
     <img 
       src="/images/introbg.svg" 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import WhatsAppButton from '../components/WhatsAppButton';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppRouter from '../router/AppRouter';
 import { LoadingProvider } from '../contexts/LoadingContext';
@@ -42,6 +43,9 @@ const MainLayout: React.FC = () => {
             <AppRouter />
           </main>
           <Footer />
+          
+          {/* WhatsApp Button */}
+          <WhatsAppButton />
         </div>
       </Router>
     </LoadingProvider>

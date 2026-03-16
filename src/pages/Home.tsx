@@ -7,7 +7,7 @@ const IntroTextLayer = React.lazy(() => import('../components/home/IntroTextLaye
 const Intro = React.lazy(() => import('../components/home/Intro'));
 const IntroSection2 = React.lazy(() => import('../components/home/IntroSection2'));
 const IntroSection3 = React.lazy(() => import('../components/home/IntroSection3'));
-const WhatWeDo = React.lazy(() => import('../components/home/WhatWeDo'));
+const Clients = React.lazy(() => import('../components/home/Clients'));
 const Clients = React.lazy(() => import('../components/home/Clients'));
 const Contact = React.lazy(() => import('../components/home/Contact'));
 
@@ -51,28 +51,6 @@ const Home: React.FC = memo(() => {
       <LazyComponentWrapper>
         <Clients />
       </LazyComponentWrapper>
-
-      {/* What We Do Section */}
-      <LazyComponentWrapper>
-        <WhatWeDo />
-      </LazyComponentWrapper>
-
-      {/* Contact Section */}
-      <LazyComponentWrapper>
-        <Contact />
-      </LazyComponentWrapper>
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
   );
 });

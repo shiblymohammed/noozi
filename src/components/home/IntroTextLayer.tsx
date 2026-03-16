@@ -16,10 +16,13 @@ const IntroTextLayer: React.FC = () => {
   const text7Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    const animationMultiplier = isMobile ? 1.5 : 1; // Faster on mobile
+    
     const ctx = gsap.context(() => {
       // Animate text 1 - move left
       gsap.to(text1Ref.current, {
-        x: '-122%',
+        x: `-${122 * animationMultiplier}%`,
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top bottom',
@@ -30,7 +33,7 @@ const IntroTextLayer: React.FC = () => {
 
       // Animate text 2 - move right
       gsap.to(text2Ref.current, {
-        x: '42%',
+        x: `${42 * animationMultiplier}%`,
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top bottom',
@@ -41,7 +44,7 @@ const IntroTextLayer: React.FC = () => {
 
       // Animate text 3 - move left
       gsap.to(text3Ref.current, {
-        x: '-45%',
+        x: `-${45 * animationMultiplier}%`,
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top bottom',
@@ -52,7 +55,7 @@ const IntroTextLayer: React.FC = () => {
 
       // Animate text 4 - move right
       gsap.to(text4Ref.current, {
-        x: '25%',
+        x: `${25 * animationMultiplier}%`,
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top bottom',
@@ -63,7 +66,7 @@ const IntroTextLayer: React.FC = () => {
 
       // Animate text 5 - move left
       gsap.to(text5Ref.current, {
-        x: '-35%',
+        x: `-${35 * animationMultiplier}%`,
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top bottom',
@@ -74,7 +77,7 @@ const IntroTextLayer: React.FC = () => {
 
       // Animate text 6 - move right
       gsap.to(text6Ref.current, {
-        x: '20%',
+        x: `${20 * animationMultiplier}%`,
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top bottom',
@@ -85,7 +88,7 @@ const IntroTextLayer: React.FC = () => {
 
       // Animate text 7 - move left
       gsap.to(text7Ref.current, {
-        x: '20%',
+        x: `${20 * animationMultiplier}%`,
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top bottom',
@@ -98,10 +101,10 @@ const IntroTextLayer: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
-  const textClass = "text-[15vw] leading-[0.75] font-extrabold italic text-[#e3d9d1] uppercase font-barlow relative";
+  const textClass = "text-[25vw] md:text-[15vw] leading-[0.75] font-extrabold italic text-[#e3d9d1] uppercase font-barlow relative";
 
   return (
-    <div ref={containerRef} className="absolute inset-0 z-30 flex flex-col justify-start -mt-[2vh] pt-0 pointer-events-none overflow-visible w-full px-4">
+    <div ref={containerRef} className="absolute inset-0 z-30 flex flex-col justify-start mt-[8vh] pt-0 pointer-events-none overflow-visible w-full px-4 -ml-8 md:ml-0">
 
       {/* 1. creative- */}
       <div ref={text1Ref} className="w-full flex justify-start pl-[59vw] will-change-transform">
@@ -134,7 +137,7 @@ const IntroTextLayer: React.FC = () => {
       </div>
 
       {/* 7. Curved line */}
-      <div ref={text7Ref} className="w-full flex justify-start pl-[20vw] mt-24 mb-8 will-change-transform">
+      <div ref={text7Ref} className="w-full flex justify-start pl-[20vw] mt-12 mb-4 will-change-transform">
         <svg width="35vw" height="40" viewBox="0 0 300 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M5 25 Q 150 0 295 25 Q 150 15 5 25 Z"

@@ -193,7 +193,7 @@ const Hero: React.FC = () => {
   }, [handleMouseMove]);
 
   // Create derived transform values for our background
-  const rotateX = useTransform(smoothY, [-1, 1], [4, -4]); 
+  const rotateX = useTransform(smoothY, [-1, 1], [4, -4]);
   const rotateY = useTransform(smoothX, [-1, 1], [-4, 4]);
 
   const transformStyle = useMotionTemplate`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.08)`;
@@ -241,7 +241,7 @@ const Hero: React.FC = () => {
   const taglineWords = ["WE", "CREATE", "STORIES", "THAT", "MOVE"];
 
   return (
-    <section className="relative h-screen w-full bg-alpha flex items-center justify-center overflow-hidden">
+    <section className="relative h-screen md:h-[84vh] w-full bg-alpha flex items-center justify-center overflow-hidden">
       {/* Background Image with 3D tilt and fade */}
       <motion.img
         src="/images/herobg.svg"
@@ -360,9 +360,8 @@ const Hero: React.FC = () => {
               initial="hidden"
               animate="visible"
               variants={wordVariants}
-              className={`text-base md:text-xl lg:text-2xl font-poppins tracking-[0.2em] uppercase ${
-                word === "STORIES" ? "text-beta font-bold" : "text-tango/70 font-light"
-              }`}
+              className={`text-base md:text-xl lg:text-2xl font-poppins tracking-[0.2em] uppercase ${word === "STORIES" ? "text-beta font-bold" : "text-tango/70 font-light"
+                }`}
             >
               {word}
             </motion.span>

@@ -126,6 +126,7 @@ const Clients: React.FC = () => {
 
   // Scroll-based horizontal movement for logos
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
+  const xReverse = useTransform(scrollYProgress, [0, 1], ["-80%", "0%"]);
 
   // Refs for text elements
   const text1Ref = useRef<HTMLDivElement>(null);
@@ -135,7 +136,7 @@ const Clients: React.FC = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(text1Ref.current, {
-        x: '15%',
+        x: '25%',
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top bottom',
@@ -145,7 +146,7 @@ const Clients: React.FC = () => {
       });
 
       gsap.to(text2Ref.current, {
-        x: '-20%',
+        x: '-25%',
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top bottom',
@@ -169,11 +170,20 @@ const Clients: React.FC = () => {
   }, []);
 
   const logos = [
-    { src: "/images/clients/67e2cffd986c1fedc21ce500_ZWDG.png", alt: "ZWDG" },
-    { src: "/images/clients/67e2cffd9ca61421d3e59b47_Arlande.png", alt: "Arlande" },
-    { src: "/images/clients/icon-brands-sxsw.svg", alt: "VA Company" },
-    { src: "/images/clients/67e2cffdb3fc99334ad40ff8_Menzis.png", alt: "Menzis" },
-    { src: "/images/clients/67e2cffdd55b3b26895e45e2_ANVA.png", alt: "ANVA" },
+    { src: "/images/clients/client.png", alt: "Client 1" },
+    { src: "/images/clients/client2.png", alt: "Client 2" },
+    { src: "/images/clients/client3png", alt: "Client 3" },
+    { src: "/images/clients/client4.png", alt: "Client 4" },
+    { src: "/images/clients/client5.png", alt: "Client 5" },
+    { src: "/images/clients/client55.png", alt: "Client 55" },
+    { src: "/images/clients/client6.png", alt: "Client 6" },
+    { src: "/images/clients/client7.png", alt: "Client 7" },
+    { src: "/images/clients/client77.png", alt: "Client 77" },
+    { src: "/images/clients/client8.png", alt: "Client 8" },
+    { src: "/images/clients/client9.png", alt: "Client 9" },
+    { src: "/images/clients/client10.png", alt: "Client 10" },
+    { src: "/images/clients/client11.png", alt: "Client 11" },
+    { src: "/images/clients/client13.png", alt: "Client 13" },
   ];
 
   const capabilities = [
@@ -205,25 +215,26 @@ const Clients: React.FC = () => {
   ];
 
   const stats = [
-    { end: 120, suffix: "+", label: "Projects Delivered" },
+    { end: 200, suffix: "+", label: "Projects Delivered" },
     { end: 10, suffix: "+", label: "Years Experience" },
     { end: 45, suffix: "+", label: "Happy Clients" },
-    { end: 15, suffix: "", label: "Awards Won" },
   ];
 
   return (
-    <section ref={containerRef} className="relative w-full bg-tango flex flex-col items-center p-0 m-0">
+    <section ref={containerRef} className="relative w-full bg-tango flex flex-col items-center p-0 m-0 overflow-visible -mt-1">
       {/* Clients Background Image - Top Transition */}
       <img
         src="/images/clientsbg.svg"
         alt="Clients Background"
-        className="absolute -top-24 left-0 w-screen min-w-full max-w-none h-auto pointer-events-none object-cover z-20"
+        className="absolute top-0 md:-top-1 left-0 w-full min-w-full max-w-none h-auto pointer-events-none object-cover z-50 block"
+        style={{ width: '100vw' }}
       />
 
       {/* Client Logos Sliding Carousel */}
-      <div className="relative z-30 w-full pt-32 pb-16 overflow-hidden">
+      <div className="relative z-30 w-full pt-32 pb-8 overflow-hidden">
+        {/* Desktop: Single row */}
         <motion.div
-          className="flex items-center gap-16 will-change-transform"
+          className="hidden md:flex items-center gap-2 will-change-transform"
           style={{ x }}
         >
           {[...Array(4)].map((_, setIndex) => (
@@ -231,24 +242,78 @@ const Clients: React.FC = () => {
               {logos.map((logo, index) => (
                 <div
                   key={`${setIndex}-${index}`}
-                  className="h-10 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100 flex-shrink-0"
-                  style={{ minWidth: '100px' }}
+                  className="flex items-center justify-center hover:scale-105 transition-all duration-300 flex-shrink-0 bg-white/5 hover:bg-white/10 rounded-lg backdrop-blur-sm"
+                  style={{ width: '160px', height: '100px' }}
                 >
                   <img
                     src={logo.src}
                     alt={logo.alt}
-                    className="h-full w-auto object-contain"
+                    className="max-w-[140px] max-h-[80px] w-auto h-auto object-contain brightness-110 contrast-125 hover:brightness-125 hover:contrast-150 transition-all duration-300"
+                    style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.15))' }}
                   />
                 </div>
               ))}
             </React.Fragment>
           ))}
         </motion.div>
+
+        {/* Mobile: Two rows with opposite directions */}
+        <div className="md:hidden flex flex-col gap-3">
+          {/* First row - scrolls right */}
+          <motion.div
+            className="flex items-center gap-1.5 will-change-transform"
+            style={{ x }}
+          >
+            {[...Array(4)].map((_, setIndex) => (
+              <React.Fragment key={setIndex}>
+                {logos.slice(0, 7).map((logo, index) => (
+                  <div
+                    key={`row1-${setIndex}-${index}`}
+                    className="flex items-center justify-center hover:scale-105 transition-all duration-300 flex-shrink-0 bg-white/5 hover:bg-white/10 rounded-lg backdrop-blur-sm"
+                    style={{ width: '120px', height: '80px' }}
+                  >
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="max-w-[100px] max-h-[60px] w-auto h-auto object-contain brightness-110 contrast-125 hover:brightness-125 hover:contrast-150 transition-all duration-300"
+                      style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.15))' }}
+                    />
+                  </div>
+                ))}
+              </React.Fragment>
+            ))}
+          </motion.div>
+
+          {/* Second row - scrolls left */}
+          <motion.div
+            className="flex items-center gap-1.5 will-change-transform"
+            style={{ x: xReverse }}
+          >
+            {[...Array(4)].map((_, setIndex) => (
+              <React.Fragment key={setIndex}>
+                {logos.slice(7).map((logo, index) => (
+                  <div
+                    key={`row2-${setIndex}-${index}`}
+                    className="flex items-center justify-center hover:scale-105 transition-all duration-300 flex-shrink-0 bg-white/5 hover:bg-white/10 rounded-lg backdrop-blur-sm"
+                    style={{ width: '120px', height: '80px' }}
+                  >
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="max-w-[100px] max-h-[60px] w-auto h-auto object-contain brightness-110 contrast-125 hover:brightness-125 hover:contrast-150 transition-all duration-300"
+                      style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.15))' }}
+                    />
+                  </div>
+                ))}
+              </React.Fragment>
+            ))}
+          </motion.div>
+        </div>
       </div>
 
       {/* Main Content - Large Heading with Parallax */}
-      <div className="relative z-10 w-full px-8 pt-16 pb-20">
-        <div className="text-[15vw] leading-[0.75] font-extrabold italic text-center text-alpha uppercase font-barlow overflow-visible">
+      <div className="relative z-10 w-full px-8 pt-4 pb-12">
+        <div className="text-[16vh] md:text-[18vw] leading-[0.75] font-extrabold italic text-center text-alpha uppercase font-barlow overflow-visible">
           <div ref={text1Ref} className="will-change-transform">
             THERE'S
           </div>
@@ -337,7 +402,7 @@ const Clients: React.FC = () => {
           transition={{ duration: 1.2, ease: "easeOut" }}
         />
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 md:gap-8">
           {stats.map((stat, i) => (
             <AnimatedCounter
               key={i}
@@ -360,9 +425,9 @@ const Clients: React.FC = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 md:px-12 pb-32 flex flex-col items-center text-center">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 md:px-12 pb-16 md:pb-24 flex flex-col items-center text-center">
         <motion.h3
-          className="text-3xl md:text-5xl lg:text-6xl font-barlow font-black text-alpha leading-tight mb-6"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-barlow font-black text-alpha leading-tight mb-4 md:mb-6"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -375,7 +440,7 @@ const Clients: React.FC = () => {
         </motion.h3>
 
         <motion.p
-          className="text-alpha/45 text-sm md:text-base font-poppins font-light max-w-lg leading-relaxed mb-10"
+          className="text-alpha/45 text-xs sm:text-sm md:text-base font-poppins font-light max-w-md md:max-w-lg leading-relaxed mb-6 md:mb-10 px-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -385,7 +450,7 @@ const Clients: React.FC = () => {
         </motion.p>
 
         <motion.div
-          className="flex flex-wrap items-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 w-full sm:w-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -393,24 +458,26 @@ const Clients: React.FC = () => {
         >
           {/* Primary CTA */}
           <motion.button
-            className="group relative px-8 py-4 rounded-full bg-alpha text-tango text-sm font-poppins font-semibold tracking-[0.1em] uppercase overflow-hidden transition-all duration-500"
+            className="group relative px-6 md:px-8 py-3 md:py-4 rounded-full bg-alpha text-tango text-xs md:text-sm font-poppins font-semibold tracking-[0.1em] uppercase overflow-hidden transition-all duration-500 w-full sm:w-auto"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
           >
             <span className="absolute inset-0 bg-beta translate-y-full group-hover:translate-y-0 transition-transform duration-500 rounded-full" />
-            <span className="relative z-10 flex items-center gap-2">
+            <span className="relative z-10 flex items-center justify-center gap-2">
               Start a Project
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+              <svg className="w-3 h-3 md:w-4 md:h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </span>
           </motion.button>
 
           {/* Secondary Link */}
           <motion.button
-            className="group px-8 py-4 rounded-full border border-alpha/20 hover:border-alpha/40 text-alpha text-sm font-poppins font-medium tracking-[0.1em] uppercase transition-all duration-500"
+            className="group px-6 md:px-8 py-3 md:py-4 rounded-full border border-alpha/20 hover:border-alpha/40 text-alpha text-xs md:text-sm font-poppins font-medium tracking-[0.1em] uppercase transition-all duration-500 w-full sm:w-auto"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
           >
-            <span className="flex items-center gap-2">
+            <span className="flex items-center justify-center gap-2">
               View Our Work
               <motion.span
                 animate={{ x: [0, 4, 0] }}
@@ -422,6 +489,14 @@ const Clients: React.FC = () => {
           </motion.button>
         </motion.div>
       </div>
+
+      {/* Clients Background Image - Bottom Transition */}
+      <img
+        src="/images/clientsbg.svg"
+        alt="Clients Background Bottom"
+        className="absolute bottom-0 md:-bottom-1 left-0 w-full min-w-full max-w-none h-auto pointer-events-none object-cover z-50 block rotate-180"
+        style={{ width: '100vw' }}
+      />
     </section>
   );
 };
