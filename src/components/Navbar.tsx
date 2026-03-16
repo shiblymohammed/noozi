@@ -49,16 +49,25 @@ const Navbar: React.FC = () => {
       {/* Center Navigation Links */}
       <div className="hidden md:flex bg-white/5 backdrop-blur-md border border-white/5 rounded-full px-8 py-3 shadow-lg shadow-black/10">
         <ul className="flex items-center space-x-8 text-white text-xs font-medium tracking-widest font-poppins">
-          <li className="flex items-center gap-1 cursor-pointer hover:text-[#c9654f] transition-colors group">
-            SERVICES <ChevronDown className="w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-300 opacity-70" />
+          <li>
+            <Link to="/services" className="flex items-center gap-1 cursor-pointer hover:text-[#c9654f] transition-colors group">
+              SERVICES <ChevronDown className="w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-300 opacity-70" />
+            </Link>
           </li>
           <li>
             <Link to="/work" className="cursor-pointer hover:text-[#c9654f] transition-colors">
               WORK
             </Link>
           </li>
-          <li className="cursor-pointer hover:text-[#c9654f] transition-colors">
-            ABOUT
+          <li>
+            <Link to="/about" className="cursor-pointer hover:text-[#c9654f] transition-colors">
+              ABOUT
+            </Link>
+          </li>
+          <li>
+            <Link to="/contact" className="cursor-pointer hover:text-[#c9654f] transition-colors">
+              CONTACT
+            </Link>
           </li>
         </ul>
       </div>

@@ -7,9 +7,8 @@ const IntroTextLayer = React.lazy(() => import('../components/home/IntroTextLaye
 const Intro = React.lazy(() => import('../components/home/Intro'));
 const IntroSection2 = React.lazy(() => import('../components/home/IntroSection2'));
 const IntroSection3 = React.lazy(() => import('../components/home/IntroSection3'));
-const WhatWeDo = React.lazy(() => import('../components/home/WhatWeDo'));
 const Clients = React.lazy(() => import('../components/home/Clients'));
-const Contact = React.lazy(() => import('../components/home/Contact'));
+const TeamMembers = React.lazy(() => import('../components/home/TeamMembers'));
 
 // Optimized component wrapper with Suspense
 const LazyComponentWrapper: React.FC<{ children: React.ReactNode }> = memo(({ children }) => (
@@ -53,13 +52,13 @@ const Home: React.FC = memo(() => {
       </LazyComponentWrapper>
 
       {/* What We Do Section */}
-      <LazyComponentWrapper>
+      {/* <LazyComponentWrapper>
         <WhatWeDo />
-      </LazyComponentWrapper>
+      </LazyComponentWrapper> */}
 
-      {/* Contact Section */}
+      {/* Team Members Section */}
       <LazyComponentWrapper>
-        <Contact />
+        <TeamMembers />
       </LazyComponentWrapper>
 
 
