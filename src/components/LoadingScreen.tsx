@@ -32,13 +32,13 @@ const LoadingScreen: React.FC = () => {
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
     >
-      {/* Grain Noise Overlay */}
+      {/* Lightweight Static Grain Noise Overlay */}
       <div 
-        className="absolute inset-0 pointer-events-none z-10 opacity-80"
+        className="absolute inset-0 pointer-events-none z-10 opacity-[0.03]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAP//////////////////////////qO1o9gAAAARRSTlMAHR0d9Q00KAAAAVVJREFUeJxt1D0OwzAMQlE00L13H6Hn2n2E7j41V0hTJEHkP2MbcF7IwgD8Mxb3F/T2Tz29j6L3V3T4/D7S4fcZ/P0XkZ1D2R/l+Yuyvyj7m7I/yPsnZf+k7E/K/krZPyv7F2X/ouwvyv6m7B/K/lv2f1b2x7L/VvYHsv9T9oey/2/Z/1f2/1/2/8v+/8n+/8r+H2R/WfYXsq8oex1lr1H2Hcp+QtlvKPsnZf+k7F+U/ZPsh5ePcv8s989z/xz3L3D/Bvcvcv8E909x/xT3x31f2/oV3A//y6fXj3L/v9y/0v1vcv9y91+jX2jK/KXZP6l/avZf6v+Q/e/of8L+b+m/zv6L2f8y+19m/8vsv5j9p9m/MvsP2X+v7P9S9v8t+2/Z/6Psf2T/j7L/h/0/yv4f9r/M/s/Z/xX7P2X/X+wHn/RerjJ37R4AAAAASUVORK5CYII=")`,
           backgroundRepeat: 'repeat',
-          mixBlendMode: 'multiply',
+          backgroundSize: '100px 100px',
         }}
       />
 

@@ -45,7 +45,7 @@ const IntroSection3: React.FC = () => {
       {/* Main Content Area - Carousel */}
       <div className="h-full w-full flex items-center justify-center relative z-40 overflow-hidden" style={{ transform: 'rotate(5deg)' }}>
         <motion.div 
-          className="flex gap-10"
+          className="flex gap-10 will-change-transform"
           style={{ x: autoScrollX }}
         >
           {/* Duplicate cards for seamless infinite loop - reduced to 2 sets for performance */}
@@ -131,23 +131,23 @@ const IntroSection3: React.FC = () => {
                 </motion.div>
         
         {/* 1. WORK - Moving Left */}
-        <motion.div style={{ x: x1 }} className="w-full flex justify-start pl-[25vw]">
+        <motion.div style={{ x: x1 }} className="w-full flex justify-start pl-[25vw] will-change-transform">
           <h1 className={`${textClass}`}>WORK</h1>
         </motion.div>
 
         {/* 2. WORK - Moving Right */}
-        <motion.div style={{ x: x2 }} className="w-full flex justify-start pl-[60vw]">
+        <motion.div style={{ x: x2 }} className="w-full flex justify-start pl-[60vw] will-change-transform">
           <h1 className={`${textClass}`}>WORK</h1>
         </motion.div>
     
 
         {/* 3. WORK - Moving Left */}
-        <motion.div style={{ x: x3 }} className="w-full flex justify-start pl-[16vw]">
+        <motion.div style={{ x: x3 }} className="w-full flex justify-start pl-[16vw] will-change-transform">
           <h1 className={`${textClass}`}>WORK</h1>
         </motion.div>
 
         {/* 4. WORK - Moving Right */}
-        <motion.div style={{ x: x4 }} className="w-full flex justify-start pl-[30vw]">
+        <motion.div style={{ x: x4 }} className="w-full flex justify-start pl-[30vw] will-change-transform">
           <h1 className={`${textClass}`}>WORK</h1>
         </motion.div>
 

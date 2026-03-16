@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback } from "react";
-import { motion, useScroll, useTransform, useMotionTemplate, useAnimation } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionTemplate, useAnimation, useMotionValue, useSpring } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 
 /* ─── Floating Orb Component ─── */
@@ -155,8 +155,15 @@ const WiggleLetter: React.FC<{ char: string; index: number }> = ({ char, index }
 
 /* ─── Hero Component ─── */
 const Hero: React.FC = () => {
-  const [transformStyle, setTransformStyle] = React.useState({});
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth mouse coordinates
+  const springConfig = { damping: 25, stiffness: 120 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
   const { scrollY } = useScroll();
 
   // Scroll-based gradient fade
@@ -167,26 +174,29 @@ const Hero: React.FC = () => {
   const contentY = useTransform(scrollY, [0, 500], [0, 100]);
   const contentOpacity = useTransform(scrollY, [0, 400], [1, 0]);
 
-  // 3D tilt on mouse
+  // 3D tilt on mouse without React State re-rendering!
   const handleMouseMove = useCallback((e: MouseEvent) => {
     const { clientX, clientY, view } = e;
     if (!view) return;
     const { innerWidth, innerHeight } = view;
+    // Normalize coordinates between -1 and 1
     const x = (clientX - innerWidth / 2) / (innerWidth / 2);
     const y = (clientY - innerHeight / 2) / (innerHeight / 2);
-    const rotateX = -y * 4;
-    const rotateY = x * 4;
 
-    setTransformStyle({
-      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.08)`,
-      transition: "transform 0.15s ease-out",
-    });
-  }, []);
+    mouseX.set(x);
+    mouseY.set(y);
+  }, [mouseX, mouseY]);
 
   useEffect(() => {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [handleMouseMove]);
+
+  // Create derived transform values for our background
+  const rotateX = useTransform(smoothY, [-1, 1], [4, -4]); 
+  const rotateY = useTransform(smoothX, [-1, 1], [-4, 4]);
+
+  const transformStyle = useMotionTemplate`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.08)`;
 
   // Grain canvas
   useEffect(() => {
@@ -238,7 +248,7 @@ const Hero: React.FC = () => {
         alt="Hero Background"
         className="fixed inset-0 w-full h-full object-cover pointer-events-none"
         style={{
-          ...transformStyle,
+          transform: transformStyle,
           opacity: 0.05,
           maskImage,
           WebkitMaskImage: maskImage,
@@ -262,8 +272,8 @@ const Hero: React.FC = () => {
         <AnimatedLine direction="vertical" position="80%" delay={1.9} />
       </div>
 
-      {/* Floating Orbs (Background) */}
-      <div className="absolute inset-0 z-[4] pointer-events-none">
+      {/* Floating Orbs (Background) - Hidden on mobile to save GPU */}
+      <div className="absolute inset-0 z-[4] pointer-events-none hidden md:block">
         <FloatingOrb size={300} color="rgba(36, 138, 97, 0.15)" initialX="-5%" initialY="10%" duration={12} delay={0} blur={60} />
         <FloatingOrb size={200} color="rgba(154, 199, 179, 0.12)" initialX="70%" initialY="60%" duration={15} delay={2} blur={50} />
         <FloatingOrb size={250} color="rgba(36, 138, 97, 0.1)" initialX="40%" initialY="-10%" duration={18} delay={1} blur={70} />
@@ -271,8 +281,8 @@ const Hero: React.FC = () => {
         <FloatingOrb size={150} color="rgba(36, 138, 97, 0.12)" initialX="15%" initialY="70%" duration={16} delay={4} blur={45} />
       </div>
 
-      {/* Rising Particles */}
-      <div className="absolute inset-0 z-[5] pointer-events-none">
+      {/* Rising Particles - Hidden on mobile to save GPU */}
+      <div className="absolute inset-0 z-[5] pointer-events-none hidden md:block">
         {Array.from({ length: 15 }).map((_, i) => (
           <Particle
             key={i}
@@ -285,9 +295,9 @@ const Hero: React.FC = () => {
         ))}
       </div>
 
-      {/* Center Glow */}
+      {/* Center Glow - Hidden on mobile to save GPU */}
       <motion.div
-        className="absolute z-[4] pointer-events-none"
+        className="absolute z-[4] pointer-events-none hidden md:block"
         style={{
           width: "60vw",
           height: "60vh",

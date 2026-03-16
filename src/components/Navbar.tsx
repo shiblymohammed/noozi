@@ -1,41 +1,38 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 const Navbar: React.FC = () => {
-  const [rotation, setRotation] = useState(0);
   const eyeRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth out the mouse values to avoid jitter
+  const smoothX = useSpring(mouseX, { damping: 20, stiffness: 100 });
+  const smoothY = useSpring(mouseY, { damping: 20, stiffness: 100 });
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      if (!eyeRef.current) return;
-
-      const rect = eyeRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      // Calculate the angle between the center of the eye and the mouse cursor
-      const angle = Math.atan2(event.clientY - centerY, event.clientX - centerX);
-      
-      // Convert radians to degrees and add 90 degrees if the original image is facing up, 
-      // or 0 if facing right. Assuming typical "up" or "forward" facing, let's try standard mapping.
-      // Math.atan2(0, 1) is 0 (right). Math.atan2(1, 0) is PI/2 (down).
-      // If image pupil is at top (12 o'clock), we need to add 90deg to align 0deg (right) to 3 o'clock?
-      // Actually, if image is facing UP (12 o'clcok), and we want it to look Right (0 rad), that's +90deg rotation.
-      // Let's assume standard orientation and adjust. 
-      // angle * (180 / Math.PI) gives degrees.
-      // Let's assume standard rotation first.
-      const degrees = angle * (180 / Math.PI);
-      
-      // The image is facing right by default (0 degrees).
-      // Math.atan2(y, x) returns 0 for the positive X axis (right).
-      // So no offset is needed.
-      setRotation(degrees);
+      mouseX.set(event.clientX);
+      mouseY.set(event.clientY);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [mouseX, mouseY]);
+
+  // Create a derived transform value calculating the rotation angle based on mouse position
+  const rotateAngle = useTransform([smoothX, smoothY], ([x, y]) => {
+    if (!eyeRef.current) return 0;
+    const rect = eyeRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Calculate angle in degrees
+    const angle = Math.atan2((y as number) - centerY, (x as number) - centerX);
+    return angle * (180 / Math.PI);
+  });
 
   return (
     <nav className="w-full flex items-center justify-between px-8 md:px-24 lg:px-44 xl:px-60 py-6 fixed top-0 left-0 z-50 bg-transparent">
@@ -75,11 +72,11 @@ const Navbar: React.FC = () => {
             ref={eyeRef}
             className="relative w-6 h-6 rounded-full bg-black/10 flex items-center justify-center overflow-hidden shadow-inner"
           >
-             <img 
+             <motion.img 
                src="/images/eyeball.png" 
                alt="Eye" 
                className="w-full h-full object-cover"
-               style={{ transform: `rotate(${rotation}deg)` }}
+               style={{ rotate: rotateAngle }}
              />
           </div>
           <span className="relative text-white font-bold text-xs uppercase tracking-wider font-paytone leading-none drop-shadow-sm">

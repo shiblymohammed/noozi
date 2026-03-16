@@ -140,7 +140,7 @@ const Clients: React.FC = () => {
           trigger: containerRef.current,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: 1,
+          scrub: true,
         },
       });
 
@@ -150,7 +150,7 @@ const Clients: React.FC = () => {
           trigger: containerRef.current,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: 1,
+          scrub: true,
         },
       });
 
@@ -160,7 +160,7 @@ const Clients: React.FC = () => {
           trigger: containerRef.current,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: 1,
+          scrub: true,
         },
       });
     }, containerRef);
@@ -223,7 +223,7 @@ const Clients: React.FC = () => {
       {/* Client Logos Sliding Carousel */}
       <div className="relative z-30 w-full pt-32 pb-16 overflow-hidden">
         <motion.div
-          className="flex items-center gap-16"
+          className="flex items-center gap-16 will-change-transform"
           style={{ x }}
         >
           {[...Array(4)].map((_, setIndex) => (
@@ -249,13 +249,13 @@ const Clients: React.FC = () => {
       {/* Main Content - Large Heading with Parallax */}
       <div className="relative z-10 w-full px-8 pt-16 pb-20">
         <div className="text-[15vw] leading-[0.75] font-extrabold italic text-center text-alpha uppercase font-barlow overflow-visible">
-          <div ref={text1Ref}>
+          <div ref={text1Ref} className="will-change-transform">
             THERE'S
           </div>
-          <div ref={text2Ref}>
+          <div ref={text2Ref} className="will-change-transform">
             MORE TO
           </div>
-          <div ref={text3Ref}>
+          <div ref={text3Ref} className="will-change-transform">
             EXPLORE
           </div>
         </div>
