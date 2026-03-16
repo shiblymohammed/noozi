@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
+import ContactModal from "./ContactModal";
 
 const Navbar: React.FC = () => {
   const [rotation, setRotation] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const eyeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -67,7 +69,10 @@ const Navbar: React.FC = () => {
 
       {/* Right 'Let's Talk' Button */}
       <div className="flex-shrink-0">
-        <button className="relative flex items-center gap-2 bg-beta shadow-[0_0_20px_rgba(201,101,79,0.35)] hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(201,101,79,0.5)] transition-all duration-300 rounded-full pl-2 pr-6 py-3 group overflow-hidden">
+        <button 
+          onClick={() => setIsModalOpen(true)}
+          className="relative flex items-center gap-2 bg-beta shadow-[0_0_20px_rgba(201,101,79,0.35)] hover:-translate-y-0.5 hover:shadow-[0_0_25px_rgba(201,101,79,0.5)] transition-all duration-300 rounded-full pl-2 pr-6 py-3 group overflow-hidden"
+        >
           {/* Top highlight for 3D effect */}
           <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/20 to-transparent pointer-events-none" />
           
@@ -87,6 +92,9 @@ const Navbar: React.FC = () => {
           </span>
         </button>
       </div>
+
+      {/* Contact Modal */}
+      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </nav>
   );
 };
