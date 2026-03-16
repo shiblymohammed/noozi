@@ -117,11 +117,11 @@ const NooziFooter: React.FC = () => {
           <div className="space-y-6">
             <h3 className="text-lg font-bold font-paytone text-white">Services</h3>
             <ul className="space-y-3">
-              <li className="text-gray-300 text-sm font-poppins">Web Development</li>
-              <li className="text-gray-300 text-sm font-poppins">UI/UX Design</li>
-              <li className="text-gray-300 text-sm font-poppins">Brand Identity</li>
-              <li className="text-gray-300 text-sm font-poppins">Digital Marketing</li>
-              <li className="text-gray-300 text-sm font-poppins">Video Production</li>
+              <li className="text-gray-300 text-sm font-poppins">Instagram Reels</li>
+              <li className="text-gray-300 text-sm font-poppins">Brand Videos</li>
+              <li className="text-gray-300 text-sm font-poppins">Social Media Content</li>
+              <li className="text-gray-300 text-sm font-poppins">Product Videos</li>
+              <li className="text-gray-300 text-sm font-poppins">Event Coverage</li>
             </ul>
           </div>
 
@@ -129,27 +129,25 @@ const NooziFooter: React.FC = () => {
           <div className="space-y-6">
             <h3 className="text-lg font-bold font-paytone text-white">Get In Touch</h3>
             <div className="space-y-4">
-              <div className="flex items-start space-x-3">
-                <Mail className="w-5 h-5 text-beta mt-0.5 flex-shrink-0" />
+              <a href="mailto:nooziproductions@gmail.com" className="flex items-start space-x-3 group">
+                <Mail className="w-5 h-5 text-beta mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
                 <div>
-                  <p className="text-gray-300 text-sm font-poppins">hello@nooziproductions.com</p>
-                  <p className="text-gray-300 text-sm font-poppins">info@nooziproductions.com</p>
+                  <p className="text-gray-300 group-hover:text-beta transition-colors text-sm font-poppins">nooziproductions@gmail.com</p>
                 </div>
-              </div>
+              </a>
               
-              <div className="flex items-start space-x-3">
-                <Phone className="w-5 h-5 text-beta mt-0.5 flex-shrink-0" />
+              <a href="tel:+919495885632" className="flex items-start space-x-3 group">
+                <Phone className="w-5 h-5 text-beta mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
                 <div>
-                  <p className="text-gray-300 text-sm font-poppins">+1 (555) 123-4567</p>
-                  <p className="text-gray-300 text-sm font-poppins">+1 (555) 987-6543</p>
+                  <p className="text-gray-300 group-hover:text-beta transition-colors text-sm font-poppins">+91 94958 85632</p>
                 </div>
-              </div>
+              </a>
               
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-beta mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300 text-sm font-poppins">123 Creative Street</p>
-                  <p className="text-gray-300 text-sm font-poppins">Design District, NY 10001</p>
+                  <p className="text-gray-300 text-sm font-poppins">Palazhi</p>
+                  <p className="text-gray-300 text-sm font-poppins">Calicut, Kerala, India</p>
                 </div>
               </div>
             </div>

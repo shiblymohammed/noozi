@@ -1,11 +1,22 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useAnimationFrame, useInView } from 'framer-motion';
 
-const VideoCard: React.FC<{ videoUrl: string; index: number; thumbnail?: string }> = ({ videoUrl, index, thumbnail }) => {
+const VideoCard: React.FC<{ videoUrl: string; videoId: string; index: number }> = ({ videoUrl, videoId, index }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [thumbnailLoaded, setThumbnailLoaded] = useState(false);
   // Only mount the heavy iframe if this card comes within 200px of entering the viewport!
   const isInView = useInView(ref, { margin: "200px", once: true });
+
+  // Vimeo thumbnail URL - high quality
+  const thumbnailUrl = `https://vumbnail.com/${videoId}.jpg`;
+
+  // Preload thumbnail
+  useEffect(() => {
+    const img = new Image();
+    img.src = thumbnailUrl;
+    img.onload = () => setThumbnailLoaded(true);
+  }, [thumbnailUrl]);
 
   return (
     <div
@@ -16,20 +27,34 @@ const VideoCard: React.FC<{ videoUrl: string; index: number; thumbnail?: string 
         border: 'none',
       }}
     >
-      {/* Thumbnail fallback */}
-      {thumbnail && !isLoaded && (
-        <div
+      {/* Thumbnail with fade transition */}
+      {thumbnailLoaded && !isLoaded && (
+        <motion.div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url(${thumbnail})`,
+            backgroundImage: `url(${thumbnailUrl})`,
           }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
         />
       )}
       
-      {/* Loading placeholder if no thumbnail */}
-      {!thumbnail && !isLoaded && (
+      {/* Loading placeholder */}
+      {!thumbnailLoaded && (
         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-          <div className="w-16 h-16 border-4 border-white/20 border-t-white/60 rounded-full animate-spin" />
+          <div className="w-12 h-12 border-3 border-white/20 border-t-white/60 rounded-full animate-spin" />
+        </div>
+      )}
+
+      {/* Play icon overlay on thumbnail */}
+      {thumbnailLoaded && !isLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+          <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
+            <svg className="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
         </div>
       )}
 
@@ -46,12 +71,12 @@ const VideoCard: React.FC<{ videoUrl: string; index: number; thumbnail?: string 
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: '100%',
-            height: '177.78%', // Maintain 9:16 aspect ratio, crop to fit
+            height: '177.78%',
             minWidth: '100%',
             minHeight: '100%',
-            pointerEvents: 'none', // Prevent iframes from intercepting scroll
+            pointerEvents: 'none',
             opacity: isLoaded ? 1 : 0,
-            transition: 'opacity 0.5s ease-in-out',
+            transition: 'opacity 0.3s ease-in-out',
           }}
           title={`Video ${index + 1}`}
         />
@@ -134,20 +159,20 @@ const IntroSection3: React.FC = () => {
         >
           {/* Duplicate cards for seamless infinite loop - 3 sets for smooth looping */}
           {[...Array(3)].map((_, setIndex) => {
-            // Vimeo video URLs with controls hidden and background mode
+            // Vimeo video URLs with IDs for thumbnail generation
             const videos = [
-              { url: "https://player.vimeo.com/video/1153483177?background=1&autoplay=1&loop=1&muted=1&controls=0", thumb: "https://i.vimeocdn.com/video/1153483177_640.jpg" },
-              { url: "https://player.vimeo.com/video/1153483144?background=1&autoplay=1&loop=1&muted=1&controls=0", thumb: "https://i.vimeocdn.com/video/1153483144_640.jpg" },
-              { url: "https://player.vimeo.com/video/1153483218?background=1&autoplay=1&loop=1&muted=1&controls=0", thumb: "https://i.vimeocdn.com/video/1153483218_640.jpg" },
-              { url: "https://player.vimeo.com/video/1153483192?background=1&autoplay=1&loop=1&muted=1&controls=0", thumb: "https://i.vimeocdn.com/video/1153483192_640.jpg" },
-              { url: "https://player.vimeo.com/video/1153483221?background=1&autoplay=1&loop=1&muted=1&controls=0", thumb: "https://i.vimeocdn.com/video/1153483221_640.jpg" },
-              { url: "https://player.vimeo.com/video/1153483174?background=1&autoplay=1&loop=1&muted=1&controls=0", thumb: "https://i.vimeocdn.com/video/1153483174_640.jpg" },
+              { url: "https://player.vimeo.com/video/1153483177?background=1&autoplay=1&loop=1&muted=1&controls=0", id: "1153483177" },
+              { url: "https://player.vimeo.com/video/1153483144?background=1&autoplay=1&loop=1&muted=1&controls=0", id: "1153483144" },
+              { url: "https://player.vimeo.com/video/1153483218?background=1&autoplay=1&loop=1&muted=1&controls=0", id: "1153483218" },
+              { url: "https://player.vimeo.com/video/1153483192?background=1&autoplay=1&loop=1&muted=1&controls=0", id: "1153483192" },
+              { url: "https://player.vimeo.com/video/1153483221?background=1&autoplay=1&loop=1&muted=1&controls=0", id: "1153483221" },
+              { url: "https://player.vimeo.com/video/1153483174?background=1&autoplay=1&loop=1&muted=1&controls=0", id: "1153483174" },
             ];
 
             return (
               <React.Fragment key={setIndex}>
                 {videos.map((video, index) => (
-                  <VideoCard key={`${setIndex}-${index}`} videoUrl={video.url} thumbnail={video.thumb} index={index} />
+                  <VideoCard key={`${setIndex}-${index}`} videoUrl={video.url} videoId={video.id} index={index} />
                 ))}
               </React.Fragment>
             );
