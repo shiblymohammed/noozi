@@ -1,13 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import ContactModal from "./ContactModal";
 
 const Navbar: React.FC = () => {
-  const [rotation, setRotation] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const eyeRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-
   // Smooth out the mouse values to avoid jitter
   const smoothX = useSpring(mouseX, { damping: 20, stiffness: 100 });
   const smoothY = useSpring(mouseY, { damping: 20, stiffness: 100 });
