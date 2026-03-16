@@ -101,10 +101,10 @@ const IntroTextLayer: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
-  const textClass = "text-[25vw] md:text-[15vw] leading-[0.75] font-extrabold italic text-[#e3d9d1] uppercase font-barlow relative";
+  const textClass = "text-[25vw] md:text-[16vw] lg:text-[15vw] leading-[0.7] md:leading-[0.65] lg:leading-[0.75] font-extrabold italic text-[#e3d9d1] uppercase font-barlow relative";
 
   return (
-    <div ref={containerRef} className="absolute inset-0 z-30 flex flex-col justify-start mt-[8vh] pt-0 pointer-events-none overflow-visible w-full px-4 -ml-8 md:ml-0">
+    <div ref={containerRef} className="absolute inset-0 z-30 flex flex-col justify-start mt-[8vh] md:mt-0 lg:mt-[8vh] pt-0 pointer-events-none overflow-visible w-full px-4 -ml-8 md:ml-0">
 
       {/* 1. creative- */}
       <div ref={text1Ref} className="w-full flex justify-start pl-[59vw] will-change-transform">
@@ -137,7 +137,7 @@ const IntroTextLayer: React.FC = () => {
       </div>
 
       {/* 7. Curved line */}
-      <div ref={text7Ref} className="w-full flex justify-start pl-[20vw] mt-12 mb-4 will-change-transform">
+      <div ref={text7Ref} className="w-full flex justify-start pl-[20vw] mt-4 md:mt-3 lg:mt-12 mb-2 md:mb-1 lg:mb-4 will-change-transform">
         <svg width="35vw" height="40" viewBox="0 0 300 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M5 25 Q 150 0 295 25 Q 150 15 5 25 Z"

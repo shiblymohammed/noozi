@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import ContactModal from "./ContactModal";
 
@@ -67,9 +67,10 @@ const Navbar: React.FC = () => {
           {/* Center: Desktop Navigation (Glassmorphism) */}
           <div className="hidden lg:flex bg-white/5 backdrop-blur-xl border border-white/10 rounded-full px-8 py-3.5 shadow-[0_8px_32px_rgba(0,0,0,0.12)]">
             <ul className="flex items-center space-x-10 text-white/90 text-xs font-semibold tracking-[0.15em] font-poppins">
-              <li className="flex items-center gap-1.5 cursor-pointer hover:text-[#c9654f] transition-all duration-300 group">
-                SERVICES
-                <ChevronDown className="w-4 h-4 text-white/50 group-hover:text-[#c9654f] group-hover:rotate-180 transition-all duration-300" />
+              <li>
+                <Link to="/services" className="relative hover:text-[#c9654f] transition-colors duration-300 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-[#c9654f] hover:after:w-full after:transition-all after:duration-300">
+                  SERVICES
+                </Link>
               </li>
               <li>
                 <Link to="/work" className="relative hover:text-[#c9654f] transition-colors duration-300 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-[#c9654f] hover:after:w-full after:transition-all after:duration-300">
@@ -79,6 +80,11 @@ const Navbar: React.FC = () => {
               <li>
                 <Link to="/about" className="relative hover:text-[#c9654f] transition-colors duration-300 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-[#c9654f] hover:after:w-full after:transition-all after:duration-300">
                   ABOUT
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="relative hover:text-[#c9654f] transition-colors duration-300 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-[#c9654f] hover:after:w-full after:transition-all after:duration-300">
+                  CONTACT
                 </Link>
               </li>
             </ul>
@@ -150,6 +156,13 @@ const Navbar: React.FC = () => {
               >
                 <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#c9654f] transition-colors">
                   ABOUT
+                </Link>
+              </motion.li>
+              <motion.li
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
+              >
+                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#c9654f] transition-colors">
+                  CONTACT
                 </Link>
               </motion.li>
 
