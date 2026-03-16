@@ -6,8 +6,9 @@ const LoadingScreen: React.FC = () => {
   const fullText = "NOOZI PRODUCTIONS";
 
   useEffect(() => {
-    const duration = 2500; // slightly less than 3s
-    const interval = 25;
+    // Faster loading - reduced from 2500ms to 1200ms
+    const duration = 1200;
+    const interval = 20;
     const steps = duration / interval;
     const increment = 100 / steps;
 
@@ -30,7 +31,11 @@ const LoadingScreen: React.FC = () => {
     <motion.div 
       className="fixed inset-0 z-[10000] bg-alpha flex flex-col items-center justify-center font-barlow overflow-hidden"
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
+      exit={{ 
+        opacity: 0,
+        scale: 0.95,
+        transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+      }}
     >
       {/* Lightweight Static Grain Noise Overlay */}
       <div 
@@ -42,34 +47,65 @@ const LoadingScreen: React.FC = () => {
         }}
       />
 
-      <div className="relative z-20 flex flex-col items-center w-full px-4 md:px-10">
+      <motion.div 
+        className="relative z-20 flex flex-col items-center w-full px-4 md:px-10"
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {/* Logo/Brand */}
+        <motion.div 
+          className="mb-8"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <img
+            src="/images/logo.png"
+            alt="Noozi Productions"
+            className="h-16 md:h-20 object-contain"
+          />
+        </motion.div>
         
         {/* Revealed Text */}
-        <div className="flex flex-wrap justify-center text-center">
-             <h1 className="text-[10vw] md:text-[8vw] leading-none font-extrabold italic uppercase text-tango tracking-tighter">
+        <div className="flex flex-wrap justify-center text-center mb-8">
+          <h1 className="text-[8vw] md:text-[6vw] leading-none font-black italic uppercase text-tango tracking-tight">
             {fullText.split('').map((char, index) => (
-              <span 
-                key={index} 
-                className="transition-opacity duration-75"
-                style={{ opacity: index < charsRevealed ? 1 : 0.1 }} // 0.1 opacity for unrevealed to hold shape but stay dim/invisible
+              <motion.span 
+                key={index}
+                initial={{ opacity: 0.1 }}
+                animate={{ opacity: index < charsRevealed ? 1 : 0.1 }}
+                transition={{ duration: 0.1 }}
               >
                 {char === ' ' ? '\u00A0' : char}
-              </span>
+              </motion.span>
             ))}
           </h1>
         </div>
 
-        {/* Loading Bar */}
-        <div className="w-64 md:w-96 h-1 bg-gray-700/30 overflow-hidden mt-8 rounded-full">
+        {/* Modern Loading Bar */}
+        <div className="w-64 md:w-96 h-1.5 bg-tango/10 overflow-hidden rounded-full relative">
           <motion.div 
-            className="h-full bg-tango"
+            className="h-full bg-gradient-to-r from-tango via-beta to-tango rounded-full relative"
             initial={{ width: "0%" }}
             animate={{ width: `${progress}%` }}
-            transition={{ type: "tween", ease: "linear", duration: 0.05 }}
-          />
+            transition={{ type: "tween", ease: "easeOut", duration: 0.05 }}
+          >
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-tango blur-sm opacity-50" />
+          </motion.div>
         </div>
 
-      </div>
+        {/* Progress Percentage */}
+        <motion.div 
+          className="mt-4 text-tango/60 text-sm font-poppins font-medium"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          {Math.floor(progress)}%
+        </motion.div>
+      </motion.div>
     </motion.div>
   );
 };
